@@ -3,6 +3,25 @@ set -e
 
 INIT_SEM=/tmp/initialized.sem
 
+if [ -z "$DATABASE_URL" ]; then
+  log "Error: DATABASE_URL not defined in the environment"
+  exit 1
+fi
+
+DATABASE_ADAPTER=$(sed -e "s/\([^:]*\).*/\1/" <<< $DATABASE_URL)
+DATABASE_HOST=$(sed -e "s/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/" <<< $DATABASE_URL)
+DATABASE_PORT=$(sed -e "s/[^/]*\/\/\([^@]*@\)\?\([^:]*\)\(:\)\?\([^/]*\)\?.*/\4/" <<< $DATABASE_URL)
+case "$DATABASE_ADAPTER" in
+  mysql2)
+    DATABASE_GEM=mysql
+    DATABASE_PORT=${DATABASE_PORT:-3306}
+    ;;
+  postgres)
+    DATABASE_GEM=postgresql
+    DATABASE_PORT=${DATABASE_PORT:-5432}
+    ;;
+esac
+
 fresh_container() {
   [ ! -f $INIT_SEM ]
 }
@@ -16,16 +35,16 @@ gems_up_to_date() {
 }
 
 wait_for_db() {
-  mariadb_address=$(getent hosts mariadb | awk '{ print $1 }')
+  db_address=$(getent hosts $DATABASE_HOST | awk '{ print $1 }')
   counter=0
-  log "Connecting to mariadb at $mariadb_address"
-  while ! nc -z mariadb 3306; do
+  log "Connecting to $DATABASE_HOST at $db_address"
+  while ! nc -z $DATABASE_HOST $DATABASE_PORT; do
     counter=$((counter+1))
     if [ $counter == 30 ]; then
-      log "Error: Couldn't connect to mariadb."
+      log "Error: Couldn't connect to $DATABASE_HOST."
       exit 1
     fi
-    log "Trying to connect to mariadb at $mariadb_address. Attempt $counter."
+    log "Trying to connect to $DATABASE_HOST at $db_address. Attempt $counter."
     sleep 5
   done
 }
@@ -46,7 +65,7 @@ log () {
 
 if ! app_present; then
   log "Creating rails application"
-  rails new . --skip-bundle --database mysql
+  rails new . --skip-bundle --database $DATABASE_GEM
 fi
 
 if ! gems_up_to_date; then
