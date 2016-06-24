@@ -98,7 +98,7 @@ You may recall that we've not installed a single Rails component on the host and
 This may sound like a complex task to achieve. But don't worry, Docker Compose makes it very simple to execute tasks inside a service container using the `exec` command. The general form of the command looks something like the following:
 
 ```bash
-$ docker-compose exec myapp <command>
+$ docker exec -it myapp_myapp_1 <command>
 ```
 
 This instructs Docker Compose to execute the command specified by `<command>` inside the `myapp` service container. The return value of the `docker-compose` command will reflect that of the specified command.
@@ -106,19 +106,19 @@ This instructs Docker Compose to execute the command specified by `<command>` in
 With this information lets try listing the available rake tasks:
 
 ```bash
-$ docker-compose exec myapp bundle exec rake -T
+$ docker exec -it myapp_myapp_1 bundle exec rake -T
 ```
 
 Next, lets try to get some information about our development environement by executing the `about` task:
 
 ```bash
-$ docker-compose exec myapp bundle exec rake about
+$ docker exec -it myapp_myapp_1 bundle exec rake about
 ```
 
 How about loading the Rails `console`?
 
 ```bash
-$ docker-compose exec myapp rails console
+$ docker exec -it myapp_myapp_1 rails console
 ```
 
 You get the idea..
@@ -126,13 +126,13 @@ You get the idea..
 Before we wrap up this subject, lets take a look at one of the most common tasks that's performed during the development lifecycle of a Rails application. Yes, we're going to use `rails generate` to generate a scaffold.
 
 ```bash
-$ docker-compose exec myapp rails generate scaffold User name:string email:string
+$ docker exec -it myapp_myapp_1 rails generate scaffold User name:string email:string
 ```
 
 The above command will create the `User` model with `name` and `email` properties. Before we can start using this new scaffold we need to apply the migrations, to the `app_developmemt` database, that implement the `User` model.
 
 ```bash
-$ docker-compose exec myapp bundle exec rake db:migrate
+$ docker exec -it myapp_myapp_1 bundle exec rake db:migrate
 ```
 
 Sure enough, we're executing the `db:migrate` rake task
