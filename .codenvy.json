@@ -14,8 +14,8 @@
               "ram": 1000
             },
             "source": {
-              "type": "dockerfile",
-              "location": "https://raw.githubusercontent.com/bitnami/bitnami-docker-rails/che/.codenvy.dockerfile"    
+              "type": "image",
+              "location": "bitnami/rails:che"
             },
             "type": "docker",
             "dev": true
