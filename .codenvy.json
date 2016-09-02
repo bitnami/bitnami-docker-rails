@@ -60,7 +60,7 @@
       {
         "name": "create project - run first",
         "type": "custom",
-        "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && harpoon start mariadb && cd ${current.project.path} && mv README.md README.github && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
+        "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && harpoon start mariadb && cd ${current.project.path} && mv README.md README.github && mv .gitignore .gitignore.github && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
         "attributes": {
           "previewUrl": "http://${server.port.3000}/"
         }
