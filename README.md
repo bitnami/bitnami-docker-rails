@@ -1,5 +1,5 @@
 # Eclipse Che Developer Workspace
-You can use this Development environment to create an Eclipse Che on-demand workspace with a sample project ready to start developing. Click the link below to automatically create and launch an Express environment workspace on Codenvy:
+You can use this Development environment to create an Eclipse Che on-demand workspace with a sample project ready to start developing. Click the link below to automatically create and launch a Rails environment workspace on Codenvy:
 
 [![Contribute](http://beta.codenvy.com/factory/resources/codenvy-contribute.svg)](https://beta.codenvy.com/f/?url=https%3A%2F%2Fgithub.com%2Fbitnami%2Fbitnami-docker-rails%2Ftree%2Fche)
 
