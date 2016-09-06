@@ -7,10 +7,10 @@ RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ENV STACKSMITH_STACK_ID="u9fs9c0" \
     STACKSMITH_STACK_NAME="Ruby for bitnami/bitnami-docker-rails" \
     STACKSMITH_STACK_PRIVATE="1" \
-    BITNAMI_APP_NAME=Rails \
-    BITNAMI_APP_VERSION=5.0.0.1 \
-    BITNAMI_IMAGE_VERSION=5.0.0.1-r0 \
+    BITNAMI_APP_NAME=codeigniter \
+    BITNAMI_APP_VERSION=3.1.0 \
     RAILS_ENV=development \
+    BITNAMI_IMAGE_VERSION=5.0.0.1-r0 \
     PATH=/opt/bitnami/java/bin:/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH    
 
 # Install java dependency
@@ -36,7 +36,5 @@ EXPOSE 3000
 ENV TERM=xterm
 
 LABEL che:server:3000:ref=rails che:server:3000:protocol=http
-
-USER=bitnami
 
 CMD ["tail", "-f", "/dev/null"]
