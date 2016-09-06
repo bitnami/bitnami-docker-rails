@@ -15,7 +15,7 @@
             },
             "source": {
               "type": "image",
-              "location": "bitnami/rails:che"
+              "location": "bitnami/che-rails:development"
             },
             "type": "docker",
             "dev": true
