@@ -37,6 +37,6 @@ ENV TERM=xterm
 
 LABEL che:server:3000:ref=rails che:server:3000:protocol=http
 
-USER=bitnami
+USER bitnami
 
 CMD ["tail", "-f", "/dev/null"]
