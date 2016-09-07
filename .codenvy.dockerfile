@@ -11,7 +11,7 @@ ENV STACKSMITH_STACK_ID="u9fs9c0" \
     BITNAMI_APP_VERSION=5.0.0.1 \
     BITNAMI_IMAGE_VERSION=5.0.0.1-r0 \
     RAILS_ENV=development \
-    PATH=/opt/bitnami/java/bin:/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH    
+    PATH=/opt/bitnami/java/bin:/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH
 
 # Install java dependency
 RUN bitnami-pkg install java-1.8.0_91-0 --checksum 64cf20b77dc7cce3a28e9fe1daa149785c9c8c13ad1249071bc778fa40ae8773
@@ -29,14 +29,13 @@ RUN gem install rails -v 5.0.0.1 --no-document
 RUN rails new /tmp/temp_app --database mysql --quiet && rm -r /tmp/temp_app
 RUN gem install therubyracer
 
-WORKDIR /projects
-
 EXPOSE 3000
-
-ENV TERM=xterm
 
 LABEL che:server:3000:ref=rails che:server:3000:protocol=http
 
-USER bitnami
+USER=bitnami
+WORKDIR /projects
+
+ENV TERM=xterm
 
 CMD ["tail", "-f", "/dev/null"]

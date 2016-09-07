@@ -11,11 +11,11 @@
           {
             "name": "ws-machine",
             "limits": {
-              "ram": 1000
+              "ram": 1024
             },
             "source": {
               "type": "image",
-              "location": "bitnami/che-rails:latest"
+              "location": "bitnami/che-rails:che-5.0.0.1-r0"
             },
             "type": "docker",
             "dev": true
@@ -32,16 +32,14 @@
           "type": "git",
           "location": "https://github.com/bitnami/bitnami-docker-che-blank-sample",
           "parameters": {
-            "branch": "master",
             "keepVcs": "false"
           }
         },
         "mixins": [
-          "git",
           "pullrequest"
         ],
         "attributes": {
-          "local_branch": [ "che" ],
+          "local_branch": [ "contrib" ],
           "contribute_to_branch" : [ "master" ]
         },
         "modules": [],
@@ -50,7 +48,7 @@
     ],
     "commands": [
       {
-        "name": "run",
+        "name": "2. Run",
         "type": "custom",
         "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && cd ${current.project.path} && bundle exec rails server -b 0.0.0.0 -p 3000",
         "attributes": {
@@ -58,7 +56,7 @@
         }
       },
       {
-        "name": "create project - run first",
+        "name": "1. Create project",
         "type": "custom",
         "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && sudo HOME=/root /opt/bitnami/nami/bin/nami start mariadb && cd ${current.project.path} && mv README.md README.md.github && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
         "attributes": {
@@ -73,7 +71,7 @@
         {
           "id": "runCommand",
           "properties": {
-            "name": "create project - run first"
+            "name": "1. Create project"
           }
         }
       ]
