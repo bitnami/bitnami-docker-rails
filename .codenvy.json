@@ -1,36 +1,37 @@
 {
   "v": "4.0",
   "workspace": {
-    "name": "rails",
-    "defaultEnv": "rails",
-    "environments": [
-      {
-        "name": "rails",
-        "recipe": null,
-        "machineConfigs": [
-          {
-            "name": "ws-machine",
-            "limits": {
-              "ram": 1024
-            },
-            "source": {
-              "type": "image",
-              "location": "bitnami/che-rails:che-5.0.0.1-r0"
-            },
-            "type": "docker",
-            "dev": true
+    "environments": {
+      "default": {
+        "recipe": {
+          "type": "dockerimage",
+          "location": "bitnami/che-rails:che-5.0.0.1-r1"
+        },
+        "machines": {
+          "ws-machine": {
+            "agents": [
+              "org.eclipse.che.terminal",
+              "org.eclipse.che.ws-agent",
+              "org.eclipse.che.ssh"
+            ],
+            "servers": {},
+            "attributes": {
+              "memoryLimitsBytes": "1073741824"
+            }
           }
-        ]
+        }
       }
-    ],
+    },
+    "name": "bitnami-rails",
+    "defaultEnv": "default",
     "projects": [
       {
-        "name": "rails-sample",
+        "name": "rails",
         "type": "blank",
-        "path": "/rails-sample",
+        "path": "/rails",
         "source": {
           "type": "git",
-          "location": "https://github.com/bitnami/bitnami-docker-che-blank-sample",
+          "location": "https://github.com/bitnami/bitnami-docker-che-blank-sample.git",
           "parameters": {
             "keepVcs": "false"
           }
@@ -56,9 +57,9 @@
         }
       },
       {
-        "name": "1. Create project",
+        "name": "1. Create and run project",
         "type": "custom",
-        "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && sudo HOME=/root /opt/bitnami/nami/bin/nami start mariadb && cd ${current.project.path} && mv README.md README.md.github && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
+        "commandLine": "source /opt/bitnami/stacksmith-utils.sh && print_welcome_page && sudo HOME=/root /opt/bitnami/nami/bin/nami start mariadb && cd ${current.project.path} && mv README.md README-CHE.md && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
         "attributes": {
           "previewUrl": "http://${server.port.3000}/"
         }
@@ -71,7 +72,7 @@
         {
           "id": "runCommand",
           "properties": {
-            "name": "1. Create project"
+            "name": "1. Create and run project"
           }
         }
       ]
