@@ -26,9 +26,9 @@
     "defaultEnv": "default",
     "projects": [
       {
-        "name": "rails",
+        "name": "rails-sample",
         "type": "blank",
-        "path": "/rails",
+        "path": "/rails-sample",
         "source": {
           "type": "git",
           "location": "https://github.com/bitnami/bitnami-docker-che-blank-sample.git",
