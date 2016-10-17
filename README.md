@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/bitnami/bitnami-docker-rails/tree/che.svg?style=shield)](https://circleci.com/gh/bitnami/bitnami-docker-rails/tree/che)
+[![Docker Hub Automated Build](http://container.checkforupdates.com/badges/bitnami/che-rails)](https://hub.docker.com/r/bitnami/che-rails/)
+
 # Eclipse Che Developer Workspace
 You can use this Development environment to create an Eclipse Che on-demand workspace with a sample project ready to start developing. Click the link below to automatically create and launch a Rails environment workspace on Codenvy:
 
