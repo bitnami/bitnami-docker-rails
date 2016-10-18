@@ -2,7 +2,7 @@ FROM gcr.io/stacksmith-images/ubuntu-buildpack:14.04-r10
 
 MAINTAINER Bitnami <containers@bitnami.com>
 
-ENV BITNAMI_APP_NAME=Rails \
+ENV BITNAMI_APP_NAME=rails \
     BITNAMI_IMAGE_VERSION=5.0.0.1-r1 \
     RAILS_ENV=development \
     PATH=/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH
