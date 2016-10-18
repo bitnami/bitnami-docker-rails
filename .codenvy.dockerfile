@@ -30,4 +30,4 @@ WORKDIR /projects
 
 ENV TERM=xterm
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["/entrypoint.sh", "tail", "-f", "/dev/null"]
