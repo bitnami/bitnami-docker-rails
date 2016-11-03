@@ -22,7 +22,7 @@
         }
       }
     },
-    "name": "bitnami-rails",
+    "name": "rails",
     "defaultEnv": "default",
     "projects": [
       {
