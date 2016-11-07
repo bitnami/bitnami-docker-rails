@@ -1,9 +1,9 @@
-FROM gcr.io/stacksmith-images/minideb-buildpack:jessie-r2
+FROM gcr.io/stacksmith-images/minideb-buildpack:jessie-r3
 
 MAINTAINER Bitnami <containers@bitnami.com>
 
 ENV BITNAMI_APP_NAME=rails \
-    BITNAMI_IMAGE_VERSION=5.0.0.1-r2 \
+    BITNAMI_IMAGE_VERSION=5.0.0.1-r3 \
     RAILS_ENV=development \
     PATH=/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH
 
