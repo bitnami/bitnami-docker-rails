@@ -2,8 +2,8 @@ FROM gcr.io/stacksmith-images/minideb-buildpack:jessie-r3
 
 MAINTAINER Bitnami <containers@bitnami.com>
 
-ENV BITNAMI_APP_NAME=rails \
-    BITNAMI_IMAGE_VERSION=5.0.0.1-r3 \
+ENV BITNAMI_APP_NAME=che-rails \
+    BITNAMI_IMAGE_VERSION=che-5.0.0.1-r3 \
     RAILS_ENV=development \
     PATH=/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH
 
@@ -30,4 +30,4 @@ WORKDIR /projects
 
 ENV TERM=xterm
 
-CMD ["/entrypoint.sh", "tail", "-f", "/dev/null"]
+CMD [ "tail", "-f", "/dev/null"]
