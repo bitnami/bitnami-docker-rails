@@ -31,7 +31,7 @@ RUN bitnami-pkg install mysql-libraries-10.1.19-0 --checksum 6729ab22f06052af981
 RUN bitnami-pkg install mysql-client-10.1.19-0 --checksum fdbc292bedabeaf0148d66770b8aa0ab88012ce67b459d6ba2b46446c91bb79c
 
 # Ruby on Rails template
-RUN gem install rails -v 5.0.0.1 --no-document
+RUN gem install rails -v 5.0.1 --no-document
 
 # Bundle the gems required for a new application
 RUN rails new /tmp/temp_app --database mysql --quiet && rm -r /tmp/temp_app
@@ -39,7 +39,7 @@ RUN gem install therubyracer
 
 ENV RAILS_ENV=development
 ENV BITNAMI_APP_NAME=rails
-ENV BITNAMI_IMAGE_VERSION=5.0.0.1-r5
+ENV BITNAMI_IMAGE_VERSION=5.0.1-r0
 
 USER bitnami
 WORKDIR /app
