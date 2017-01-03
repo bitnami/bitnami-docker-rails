@@ -3,6 +3,7 @@ machine:
   - docker
   environment:
     IMAGE_NAME: che-rails
+    DOCKERFILE: .codenvy.dockerfile
     DOCKER_PROJECT: bitnami
     GCLOUD_PROJECT: bitnami-containers
 
@@ -14,36 +15,14 @@ dependencies:
 
 test:
   override:
-  - docker build --rm=false -f .codenvy.dockerfile -t $DOCKER_PROJECT/$IMAGE_NAME:$CIRCLE_BUILD_NUM .
+  - docker build --rm=false -f $DOCKERFILE -t $DOCKER_PROJECT/$IMAGE_NAME:$CIRCLE_BUILD_NUM .
 
 deployment:
   cache:
     branch: che
     commands:
-    - >
-      if [ -n "$DOCKER_PASS" ]; then
-        docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-        docker build --rm=false -f .codenvy.dockerfile -t $DOCKER_PROJECT/$IMAGE_NAME:_ .
-        docker push $DOCKER_PROJECT/$IMAGE_NAME:_
-      fi
+    - curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/docker-update-cache.sh | bash -
   release:
     tag: /^che-[0-9].*-r[0-9]+$/
     commands:
-    - >
-      if [ -n "$DOCKER_PASS" ]; then
-        docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-        docker build --rm=false -f .codenvy.dockerfile -t $DOCKER_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*} .
-        docker tag $DOCKER_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*} $DOCKER_PROJECT/$IMAGE_NAME:latest
-        docker push $DOCKER_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*}
-        docker push $DOCKER_PROJECT/$IMAGE_NAME:latest
-      fi
-    - >
-      if [ -n "$GCLOUD_SERVICE_KEY" ]; then
-        echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/gcloud-service-key.json
-        gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
-        echo 'ENV BITNAMI_CONTAINER_ORIGIN=GCR' >> .codenvy.dockerfile
-        docker build --rm=false -f .codenvy.dockerfile -t gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*} .
-        docker tag gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*} gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest
-        gcloud docker -- push gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:${CIRCLE_TAG#che-*}
-        gcloud docker -- push gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest
-      fi
+    - curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/docker-release-image.sh | bash -
