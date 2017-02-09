@@ -8,7 +8,7 @@ RUN install_packages git subversion openssh-server rsync
 RUN mkdir /var/run/sshd && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 ENV BITNAMI_APP_NAME=che-rails \
-    BITNAMI_IMAGE_VERSION=5.0.0.1-r7 \
+    BITNAMI_IMAGE_VERSION=5.0.0.1-r8 \
     RAILS_ENV=development \
     PATH=/opt/bitnami/ruby/bin:/opt/bitnami/mysql/bin/:$PATH
 
@@ -35,4 +35,4 @@ WORKDIR /projects
 
 ENV TERM=xterm
 
-CMD sudo /usr/sbin/sshd -D && tail -f /dev/null
+CMD sudo /usr/sbin/sshd -D
