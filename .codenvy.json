@@ -5,7 +5,7 @@
       "default": {
         "recipe": {
           "type": "dockerimage",
-          "location": "bitnami/che-rails:5.0.0.1-r8"
+          "location": "bitnami/che-rails:5.0.0.1-r9"
         },
         "machines": {
           "ws-machine": {
