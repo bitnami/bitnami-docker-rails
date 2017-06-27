@@ -59,7 +59,7 @@
       {
         "name": "1. Create and run project",
         "type": "custom",
-        "commandLine": "print-help && sudo HOME=/root /opt/bitnami/nami/bin/nami start mariadb && cd ${current.project.path} && mv README.md README-CHE.md && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && sed -Ei 's#adapter: mysql2#  adapter: mysql2\\nsocket: /opt/bitnami/mariadb/tmp/mysql.sock#g' config/database.yml && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
+        "commandLine": "print-help && sudo HOME=/root /opt/bitnami/nami/bin/nami start mariadb && cd ${current.project.path} && mv README.md README-CHE.md && rails new . --skip-bundle --database mysql && sed -Ei 's/\\s*#\\s*gem(.*)therubyracer/gem\\1therubyracer/' Gemfile && sed -Ei 's#adapter: mysql2#adapter: mysql2\\n  socket: /opt/bitnami/mariadb/tmp/mysql.sock#g' config/database.yml && bundle install && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000",
         "attributes": {
           "previewUrl": "http://${server.port.3000}/"
         }
