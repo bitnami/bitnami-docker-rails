@@ -110,18 +110,18 @@ rails_initialize() {
         bundle install
     else
         info "Creating new Rails project"
-	if ! is_boolean_yes "$SKIP_ACTIVE_RECORD"; then
-          rails new "." --database "$DATABASE_TYPE"
-          # Set up database configuration
-          local database_path="$DATABASE_NAME"
-          [[ "$DATABASE_TYPE" = "sqlite3" ]] && database_path="db/${DATABASE_NAME}.sqlite3"
-          info "Configuring database host to ${DATABASE_HOST}"
-          replace_in_file "config/database.yml" "host:.*$" "host: ${DATABASE_HOST}"
-          info "Configuring database name to ${DATABASE_NAME}"
-          replace_in_file "config/database.yml" "database:.*$" "database: ${database_path}" "1,/test:/ "
-        elif is_boolean_yes "$SKIP_ACTIVE_RECORD"; then
-          rails new "." --skip-active-record
-	fi
+        if is_boolean_yes "$SKIP_ACTIVE_RECORD"; then
+            rails new "." --skip-active-record
+        else
+            rails new "." --database "$DATABASE_TYPE"
+            # Set up database configuration
+            local database_path="$DATABASE_NAME"
+            [[ "$DATABASE_TYPE" = "sqlite3" ]] && database_path="db/${DATABASE_NAME}.sqlite3"
+            info "Configuring database host to ${DATABASE_HOST}"
+            replace_in_file "config/database.yml" "host:.*$" "host: ${DATABASE_HOST}"
+            info "Configuring database name to ${DATABASE_NAME}"
+            replace_in_file "config/database.yml" "database:.*$" "database: ${database_path}" "1,/test:/ "
+        fi
     fi
 
     # Wait for database and initialize
